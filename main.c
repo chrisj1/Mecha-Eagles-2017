@@ -36,13 +36,15 @@ int target;
 #include "Vex_Competition_Includes.c"
 
 int r;
-
+bool c;
 void pre_auton() {
 	//holdClaw(clawL,leftClaw);
 	//wait1Msec(10000);
 	startTask(flashScreen);
 	string prompt = "Final Turn Angle";
 	r = askRoutine();
+	string t = "test";
+	c = confirmChoiceWithUser(t,t)
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);

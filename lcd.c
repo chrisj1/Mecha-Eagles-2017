@@ -35,9 +35,6 @@ int displayLCDMenu(string* optionsP, int length, string prompt) {
 	int currentSelected = 0;
 	while(true) {
 		int index = currentSelected % length;
-		string istr;
-		sprintf(istr, "%d", index);
-
 		//mod function is broken with negatives? another robotc bug
 		if(index < 0) {
 			index = (length + index)%length;
@@ -71,9 +68,9 @@ int promptInt(int maxInt, int minInt, int startInt, int increment,string prompt)
 		int btn = nLCDButtons;
 		int previous = currentInt;
 		if(btn == R_BUTTON) {
-			currentInt = min(maxInt, currentInt + increment)
+			currentInt = min(maxInt, currentInt + increment);
 		} else if(btn == L_BUTTON) {
-			currentInt = max(minInt, currentInt - increment)
+			currentInt = max(minInt, currentInt - increment);
 		} else if(btn == C_BUTTON) {
 			return currentInt;
 		}
@@ -134,8 +131,11 @@ task flashScreen() {
     }
 }
 
-bool confirmChoiceWithUser() {
-	return true;
+bool confirmChoiceWithUser(string prompt, string choice) {
+	string opt[] = {"yes", "no"}
+	stringConcatenate(prompt, " ");
+	stringConcatenate(prompt, choice);
+	stringConcatenate(prompt, "?");
 }
 
 void waitForRelease() {
