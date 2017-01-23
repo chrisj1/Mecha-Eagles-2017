@@ -40,7 +40,6 @@ int displayLCDMenu(string* optionsP, int length, string prompt) {
 			index = (length + index)%length;
 		}
 		string str = *(optionsP + index);
-		writeDebugStreamLine(str);
 		displayLCDCenteredString(1, str);
 		waitForPress();
 		int btn = nLCDButtons;
