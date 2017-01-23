@@ -29,7 +29,7 @@ task holdLifterPos() {
 		int proportional = target - current;
 		int derivative = last - current;
 
-		integral += current;
+		integral += proportional;
 
 		last = target;
 
