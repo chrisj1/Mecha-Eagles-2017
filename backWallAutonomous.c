@@ -100,6 +100,8 @@ void startBackWallAuton() {
 	//stop holding pos
 	stopTask(holdLifterPos);
 
+	//go backward, lower lifter, and go forward
+	//to knock some extra stars off the fence
 	driveRightLeft(127,-127);
 	wait1Msec(1000);
 	motor[wingR] = -WING_SPEED;
