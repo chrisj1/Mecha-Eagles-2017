@@ -67,8 +67,7 @@ task autonomous() {
 	else if(r == 1) {
 		startAutonomous();
 		setDriveMotorSpeeds(100);
-		wait1Msec(1100)
-		;
+		wait1Msec(1100);
 		setDriveMotorSpeeds(0);
 	}
 	else if(r == 2) {

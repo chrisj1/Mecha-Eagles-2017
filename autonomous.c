@@ -96,9 +96,9 @@ void lifterDown() {
 
 task lifterUp() {
 	while(SensorValue[lifterPot] > LIFTER_UP)	{
-		motor[wingR] = -120;
-		motor[wingL] = 120;
-		motor[wingChain] = -120;
+		motor[wingR] = -127;
+		motor[wingL] = 127;
+		motor[wingChain] = -127;
 	}
 	motor[wingR] = 0;
 	motor[wingL] = 0;
@@ -111,9 +111,7 @@ void funcLifterUp() {
 		motor[wingL] = 120;
 		motor[wingChain] = -120;
 	}
-	motor[wingR] = -40;
-	motor[wingL] = 40;
-	motor[wingChain] = -40;
+	startTask(holdLifterPos);
 }
 
 void forwardsTillLine() {
