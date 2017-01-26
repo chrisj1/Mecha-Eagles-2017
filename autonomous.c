@@ -35,9 +35,9 @@ void turn(double angle, int speed) {
 		wait1Msec(30);
 		delta = startAngle - SensorValue[gyro]/10.0;
 		if(abs(delta - angle) < 15) {
-			speed *= .97;
+			speed *= .94;
 		}
-	}while(abs(delta) < abs(angle));
+	}while(abs(delta) < abs(angle + 15));
 	driveRightLeft(0,0);
 }
 

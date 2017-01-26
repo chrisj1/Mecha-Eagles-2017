@@ -49,9 +49,9 @@ void startBackWallAuton() {
 	wait1Msec(1000)
 	//close right claw while driving
 	if(isRight) {
-		motor[clawR] = 60;
+		motor[clawR] = 20;
 	} else {
-		motor[clawL] = 60;
+		motor[clawL] = 20;
 	}
 	//move forwards to collect stars and cubes
 	driveRightLeft(-105,90);
@@ -62,7 +62,7 @@ void startBackWallAuton() {
 	motor[wingL] = -WING_SPEED;
 	motor[wingChain] = WING_SPEED;
 	motor[clawL] = -40;
-	while(abs(getMotorEncoder(wheelFR)) < 1600) {
+	while(abs(getMotorEncoder(wheelFR)) < 1700) {
 	}
 	stopDrive();
 	wait1Msec(60);
@@ -71,18 +71,17 @@ void startBackWallAuton() {
 	motor[wingR] = WING_SPEED;
 	motor[wingL] = -WING_SPEED;
 	motor[wingChain] = WING_SPEED;
-	while(abs(getMotorEncoder(wheelFR)) < 1700) {}
+	while(abs(getMotorEncoder(wheelFR)) < 1800) {}
 	stopDrive();
 	motor[clawR] = 127;
 	motor[clawL] = -127;
 	wait1Msec(1100);
 
 	funcLifterUp();
-	writeDebugStreamLine("line")
 	if(isRight) {
-		turn(-finalTurnAngle - 90, 100);
+		turn(-finalTurnAngle - 90, 80);
 	} else {
-		turn(finalTurnAngle + 90, 100);
+		turn(finalTurnAngle + 90, 80);
 	}
 	driveRightLeft(-127,120);
 	wait1Msec(2000 / cosDegrees(finalTurnAngle));
@@ -102,24 +101,30 @@ void startBackWallAuton() {
 	//go backward, lower lifter, and go forward
 	//to knock some extra stars off the fence
 	driveRightLeft(127,-127);
-	wait1Msec(900);
+	wait1Msec(1200);
 	//lowser the lifter and extend the claws
 	stopDrive();
-	//motor[clawR] = -50;
-	//motor[clawL] = 50;
-	//wait1Msec(600);
-	//motor[clawR] = 0;
-	//motor[clawL] = 0;
+	motor[clawR] = -50;
+	motor[clawL] = 50;
+	wait1Msec(600);
+	motor[clawR] = 0;
+	motor[clawL] = 0;
 
 	//stop holding pos
 	while(SensorValue[lifterPot] < 2107) {
-		motor[wingR] = (-40);
-		motor[wingL] = (40);
+		motor[wingR] = (60);
+		motor[wingL] = (-60);
+		motor[wingChain] = 60;
 	}
+
+	motor[wingR] = (-20);
+	motor[wingL] = (20);
+	motor[wingChain] = -20;
+
 	startTask(holderLifterPos);
 	//drive forward
 	driveRightLeft(-127,127);
-	wait1Msec(750);
+	wait1Msec(1500);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 	stopDrive();
