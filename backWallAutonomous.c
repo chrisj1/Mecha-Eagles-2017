@@ -78,6 +78,7 @@ void startBackWallAuton() {
 	wait1Msec(1100);
 
 	funcLifterUp();
+	writeDebugStreamLine("line")
 	if(isRight) {
 		turn(-finalTurnAngle - 90, 100);
 	} else {
@@ -96,19 +97,30 @@ void startBackWallAuton() {
 	motor[clawL] = 0;
 
 	stopDrive();
-
-	//stop holding pos
 	stopTask(holdLifterPos);
 
 	//go backward, lower lifter, and go forward
 	//to knock some extra stars off the fence
 	driveRightLeft(127,-127);
-	wait1Msec(1000);
-	motor[wingR] = -WING_SPEED;
-	motor[wingL] = WING_SPEED;
-	motor[wingChain] = WING_SPEED;
-	wait1Msec(100);
+	wait1Msec(900);
+	//lowser the lifter and extend the claws
+	stopDrive();
+	//motor[clawR] = -50;
+	//motor[clawL] = 50;
+	//wait1Msec(600);
+	//motor[clawR] = 0;
+	//motor[clawL] = 0;
+
+	//stop holding pos
+	while(SensorValue[lifterPot] < 2107) {
+		motor[wingR] = (-40);
+		motor[wingL] = (40);
+	}
+	startTask(holderLifterPos);
+	//drive forward
 	driveRightLeft(-127,127);
-	wait1Msec(1000);
-	driveRightLeft(0,0);
+	wait1Msec(750);
+	motor[clawL] = 0;
+	motor[clawR] = 0;
+	stopDrive();
 }
