@@ -33,12 +33,12 @@ void startBackWallAuton() {
 	clearTimer(T1);
 	//30 cm for competition field
 	if(isRight) {
-		while(SensorValue[sonarLeft] < 37){
+		while(SensorValue[sonarLeft] < 47){
 			if(time1[T1] > 1700)
 				break;
 		}
 	}else {
-		while(SensorValue[sonarRight] < 37){
+		while(SensorValue[sonarRight] < 47){
 			if(time1[T1] > 1700)
 				break;
 		}
@@ -49,20 +49,24 @@ void startBackWallAuton() {
 	wait1Msec(1000)
 	//close right claw while driving
 	if(isRight) {
-		motor[clawR] = 20;
+		motor[clawR] = 30;
 	} else {
-		motor[clawL] = 20;
+		motor[clawL] = 30;
 	}
 	//move forwards to collect stars and cubes
-	driveRightLeft(-105,90);
+	drive(90, 40);
 	resetMotorEncoder(wheelFR);
 	//push wings down
 	const int WING_SPEED = 60;
 	motor[wingR] = WING_SPEED;
 	motor[wingL] = -WING_SPEED;
 	motor[wingChain] = WING_SPEED;
-	motor[clawL] = -40;
-	while(abs(getMotorEncoder(wheelFR)) < 1700) {
+	if(isRight){
+		motor[clawL] = -20;
+	} else {
+		motor[clawR] = -20;
+	}
+	while(abs(getMotorEncoder(wheelFR)) < 1850) {
 	}
 	stopDrive();
 	wait1Msec(60);
@@ -79,9 +83,9 @@ void startBackWallAuton() {
 
 	funcLifterUp();
 	if(isRight) {
-		turn(-finalTurnAngle - 90, 80);
+		turn(-finalTurnAngle - 90, 60);
 	} else {
-		turn(finalTurnAngle + 90, 80);
+		turn(finalTurnAngle + 90, 60);
 	}
 	driveRightLeft(-127,120);
 	wait1Msec(2000 / cosDegrees(finalTurnAngle));
