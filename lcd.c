@@ -20,10 +20,11 @@ int askRoutine() {
 		"Full length",
 		"Forwards",
 		"Fence Drive",
-		"Back wall"
+		"Back wall",
+		"Back wall 2"
 	};
 	string str = "Which Routine?";
-	int opt = displayLCDMenu(options, 4, str);
+	int opt = displayLCDMenu(options, 5, str);
 	return opt;
 }
 
@@ -135,6 +136,7 @@ bool confirmChoiceWithUser(string prompt, string choice) {
 	stringConcatenate(prompt, " ");
 	stringConcatenate(prompt, choice);
 	stringConcatenate(prompt, "?");
+	return true;
 }
 
 void waitForRelease() {

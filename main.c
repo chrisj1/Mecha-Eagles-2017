@@ -30,11 +30,9 @@
 #pragma userControlDuration(120)
 int target;
 #include "main.h"
-
 #include "backWallAutonomous.c"
 
 #include "Vex_Competition_Includes.c"
-
 int r;
 bool c;
 void pre_auton() {
@@ -74,6 +72,8 @@ task autonomous() {
 		startWallDrive();
 	} else if(r == 3) {
 		startBackWallAuton();
+	} else if (r == 4) {
+		backAutonomous2();
 	}
 }
 
