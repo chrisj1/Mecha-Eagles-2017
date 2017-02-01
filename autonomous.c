@@ -271,8 +271,8 @@ void setClawPos(int arm, int pos) {
 }
 
 void clawPreLaunch() {
-	motor[clawL] = -40;
-	motor[clawR] = 40;
+	motor[clawL] = -50;
+	motor[clawR] = 50;
 	wait1Msec(400);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
