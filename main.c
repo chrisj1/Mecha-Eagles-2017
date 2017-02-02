@@ -42,7 +42,7 @@ void pre_auton() {
 	string prompt = "Final Turn Angle";
 	r = askRoutine();
 	string t = "test";
-	c = confirmChoiceWithUser(t,t)
+	c = confirmChoiceWithUser(t,t);
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);

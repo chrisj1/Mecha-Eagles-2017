@@ -42,7 +42,7 @@ void knockRemainingStars() {
 	//motor[wingL] = (20);
 	//motor[wingChain] = -20;
 
-	startTask(holderLifterPos);
+	startTask(holdLifterPos);
 	//drive forward
 	driveRightLeft(-127,127);
 	wait1Msec(1500);
@@ -116,7 +116,7 @@ void startBackWallAuton() {
 	motor[clawL] = -127;
 	wait1Msec(1100);
 
-	funcLifterUp();
+	funcLifterUp(true);
 	if(isRight) {
 		turn(-finalTurnAngle - 90, 40);
 	} else {
@@ -155,7 +155,7 @@ void startBackWallAuton() {
 	motor[wingL] = (20);
 	motor[wingChain] = -20;
 
-	startTask(holderLifterPos);
+	startTask(holdLifterPos);
 	//drive forward
 	driveRightLeft(-127,127);
 	wait1Msec(1500);
@@ -222,7 +222,7 @@ void backAutonomous2() {
 	stopDrive();
 	motor[clawR] = 120;
 	wait1Msec(2000);
-	funcLifterUp();
+	funcLifterUp(false);
 	resetMotorEncoder(wheelFL);
 	int speed = 0;
 	while(abs(getMotorEncoder(wheelFL)) < 1650){

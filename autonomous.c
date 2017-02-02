@@ -55,12 +55,7 @@ void drive(int y, int x) {
 	motor[wheelBR] = -(y - x);
 	motor[wheelFR] = -(y + x);
 }
-/*
-void drive(int x, int y) {
-//for some reason, we need to reverse x and y
-driveOriginal(x, y);
-}
-*/
+
 task increaseY() {
 	while (1) {
 		yVelocity--;
@@ -105,13 +100,14 @@ task lifterUp() {
 	motor[wingChain] = 0;
 }
 
-void funcLifterUp() {
+void funcLifterUp(bool hold) {
 	while(SensorValue[lifterPot] > LIFTER_UP)	{
 		motor[wingR] = -120;
 		motor[wingL] = 120;
 		motor[wingChain] = -120;
 	}
-	startTask(holdLifterPos);
+	if(hold)
+		startTask(holdLifterPos);
 }
 
 void forwardsTillLine() {
