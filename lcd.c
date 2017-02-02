@@ -132,7 +132,7 @@ task flashScreen() {
 }
 
 bool confirmChoiceWithUser(string prompt, string choice) {
-	string opt[] = {"yes", "no"}
+	string opt[] = {"yes", "no"};
 	stringConcatenate(prompt, " ");
 	stringConcatenate(prompt, choice);
 	stringConcatenate(prompt, "?");

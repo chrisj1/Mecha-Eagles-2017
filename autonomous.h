@@ -13,7 +13,6 @@
 #define CLAW_RIGHT 2
 
 void turnTowardsStars(bool isOnRight);
-bool determineTurnNegative(float angle);
 void turn(float angle, int speed);
 void straighten(int speed);
 void collectStars(bool isOnRight, bool endOnRightSide);

@@ -26,7 +26,7 @@ void straighten(int speed) {
 	driveRightLeft(0,0);
 }
 
-void turn(double angle, int speed) {
+void turn(float angle, int speed) {
 	int startAngle = SensorValue[gyro]/10.0;
 	int negate = isTurnNegative(angle) ? -1 : 1;
 	double delta;
@@ -269,7 +269,7 @@ void setClawPos(int arm, int pos) {
 void clawPreLaunch() {
 	motor[clawL] = -50;
 	motor[clawR] = 50;
-	wait1Msec(400);
+	wait1Msec(500);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 }

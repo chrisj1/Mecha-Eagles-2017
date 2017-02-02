@@ -2,5 +2,4 @@
 #define driving_h
 #endif
 
-task wings();
-task lift();
+task wings();;

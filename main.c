@@ -56,6 +56,7 @@ void pre_auton() {
 }
 
 task autonomous() {
+	clearTimer(T1);
 	if(r == 0) {
 		startAutonomous();
 		while(true) {
@@ -75,6 +76,11 @@ task autonomous() {
 	} else if (r == 4) {
 		backAutonomous2();
 	}
+	string s;
+	sprintf(s, "%f", time1[T1]/1000.0);
+	writeDebugStream("autonomous done in:");
+	writeDebugStreamLine(s);
+
 }
 
 task usercontrol() {
