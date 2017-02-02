@@ -78,7 +78,7 @@ task autonomous() {
 	}
 	string s;
 	sprintf(s, "%f", time1[T1]/1000.0);
-	writeDebugStream("autonomous done in:");
+	writeDebugStream("autonomous done in: ");
 	writeDebugStreamLine(s);
 
 }

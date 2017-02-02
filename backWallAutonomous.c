@@ -22,7 +22,7 @@ void knockRemainingStars() {
 		//go backward, lower lifter, and go forward
 	//to knock some extra stars off the fence
 	driveRightLeft(127,-127);
-	wait1Msec(1200);
+	wait1Msec(800);
 	//lowser the lifter and extend the claws
 	stopDrive();
 	motor[clawR] = -50;
@@ -32,7 +32,7 @@ void knockRemainingStars() {
 	motor[clawL] = 0;
 
 	//stop holding pos
-	while(SensorValue[lifterPot] < 2250) {
+	while(SensorValue[lifterPot] < 2200) {
 		motor[wingR] = (60);
 		motor[wingL] = (-60);
 		motor[wingChain] = 60;
@@ -45,7 +45,7 @@ void knockRemainingStars() {
 	startTask(holdLifterPos);
 	//drive forward
 	driveRightLeft(-127,127);
-	wait1Msec(1500);
+	wait1Msec(1200);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 	stopDrive();
@@ -171,19 +171,28 @@ void startBackWallAuton() {
 
 
 void backAutonomous2() {
+	int MOD;
+	if(!isRight){
+		MOD = -1;
+	}
 	resetMotorEncoder(wheelFR);
 	driveRightLeft(50, -50)
 	while(abs(getMotorEncoder(wheelFR)) < 200) {}
 	stopDrive();
 	clawPreLaunch();
 	launchStar();
-	drive(0, -110);
+	drive(0, MOD * -110);
 
 	//wait till 30 cm from wall
 	clearTimer(T1);
 	//30 cm for competition field
 	if(isRight) {
-		while(SensorValue[sonarLeft] < 30){
+		while(SensorValue[sonarLeft] < 28){
+			if(time1[T1] > 1700)
+				break;
+		}
+	} else {
+		while(SensorValue[sonarRight] < 28) {
 			if(time1[T1] > 1700)
 				break;
 		}
@@ -191,22 +200,30 @@ void backAutonomous2() {
 	stopDrive();
 	initLeftArm();
 
-	//if(isRight) {
+	if(isRight) {
 		drive(0,110);
 		while(SensorValue[sonarLeft] > 25){
 			if(time1[T1] > 1700)
 				break;
 		}
-	//}
+	} else {
+		while(SensorValue[sonarRight] > 25) {
+			if(time1[T1] > 1700)
+				break;
+		}
+	}
 	stopDrive();
-	motor[clawL] = -10;
+	motor[clawL] = -5;
 	driveRightLeft(-100, 100);
 	//while(abs(SensorValue(sonarRight)) > 30) {}
 	resetMotorEncoder(wheelFL);
 	while(abs(getMotorEncoder(wheelFL)) < 2800){}
 	stopDrive();
-
-	motor[clawL] = -127;
+	if(isRight) {
+		motor[clawL] = -127;
+	} else {
+		motor[clawR] = 127;
+	}
 	if(isRight) {
 		drive(0,110);
 		int speed = 0;
@@ -215,19 +232,24 @@ void backAutonomous2() {
 				break;
 		}
 	}
-		motor[clawR] = 60;
-	turn(-110 - finalTurnAngle, 80)
+	motor[clawR] = 60;
+
+	if(isRight) {
+		turn(-110 - finalTurnAngle, 80)
+	} else {
+		turn(110 + finalTurnAngle, 80)
+	}
 	driveRightLeft(-100,100);
 	resetMotorEncoder(wheelFL);;
 	while(abs(getMotorEncoder(wheelFL)) < 200){}
 	stopDrive();
 	motor[clawR] = 127;
-	wait1Msec(2000);
+	wait1Msec(700);
 	funcLifterUp(false);
 	resetMotorEncoder(wheelFL);
 	int speed = 0;
-	while(abs(getMotorEncoder(wheelFL)) < 1750/ cosDegrees(finalTurnAngle)){
-		speed = min(120, speed + 5);
+	while(abs(getMotorEncoder(wheelFL)) < 1780/ cosDegrees(finalTurnAngle)){
+		speed = min(127, speed + 30);
 		driveRightLeft(-speed, speed);
 		wait1Msec(50);
 	}
@@ -253,10 +275,10 @@ void backAutonomous2() {
 
 void initLeftArm() {
 
-	while(SensorValue[lifterPot] > 2600)	{
-		motor[wingR] = -80;
-		motor[wingL] = 80;
-		motor[wingChain] = -80;
+	while(SensorValue[lifterPot] > 2700)	{
+		motor[wingR] = -100;
+		motor[wingL] = 100;
+		motor[wingChain] = -100;
 	}
 	motor[wingR] = -0;
 	motor[wingL] = 0;
@@ -264,12 +286,9 @@ void initLeftArm() {
 	startTask(holdLifterPos);
 
 	motor[clawL] = -120;
-	while(SensorValue[leftClaw] > 2300) {}
+	while(SensorValue[leftClaw] > 2200) {}
 	motor[clawL] = 0;
 	stopTask(holdLifterPos);
-	motor[wingR] = 50;
-	motor[wingL] = -50;
-	motor[wingChain] = 50;
 
 	motor[wingR] = 100;
 	motor[wingL] = -100;
