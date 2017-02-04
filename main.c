@@ -46,7 +46,7 @@ void pre_auton() {
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);
-	if(r == 3) {
+	if(r == 3 || r == 4) {
 		finalTurnAngle = promptInt(50, -50, 0, 5, prompt);
 	}
 	clearScreen();

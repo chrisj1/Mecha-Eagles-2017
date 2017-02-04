@@ -76,10 +76,10 @@ void followWall(int distance) {
 }
 
 const int LIFTER_DOWN = 3550;
-const int LIFTER_UP = 1860;
+const int LIFTER_UP = 209;
 
 void lifterDown() {
-	while(SensorValue[lifterPot] < LIFTER_DOWN)	{
+	while(SensorValue[lifterPot] > LIFTER_DOWN)	{
 		motor[wingR] = -64;
 		motor[wingL] = 64;
 		motor[wingChain] = 64;
@@ -90,7 +90,7 @@ void lifterDown() {
 }
 
 task lifterUp() {
-	while(SensorValue[lifterPot] > LIFTER_UP)	{
+	while(SensorValue[lifterPot] < LIFTER_UP)	{
 		motor[wingR] = -127;
 		motor[wingL] = 127;
 		motor[wingChain] = -127;
@@ -101,7 +101,7 @@ task lifterUp() {
 }
 
 void funcLifterUp(bool hold) {
-	while(SensorValue[lifterPot] > LIFTER_UP)	{
+	while(SensorValue[lifterPot] < LIFTER_UP)	{
 		motor[wingR] = -120;
 		motor[wingL] = 120;
 		motor[wingChain] = -120;
