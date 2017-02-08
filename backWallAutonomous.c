@@ -171,40 +171,43 @@ void backAutonomous2() {
 	if(!isRight){
 		MOD = -1;
 	}
-	resetMotorEncoder(wheelFR);
-	driveRightLeft(50, -50)
-	while(abs(getMotorEncoder(wheelFR)) < 200) {}
-	stopDrive();
-	clawPreLaunch();
-	launchStar();
-	drive(0, MOD * -110);
+	turn(-40, 50);
 
-	//wait till 30 cm from wall
-	clearTimer(T1);
-	//30 cm for competition field
-	if(isRight) {
-		while(SensorValue[sonarLeft] < 28){
-			if(time1[T1] > 1700)
-				break;
-		}
-	} else {
-		while(SensorValue[sonarRight] < 32) {
-			if(time1[T1] > 1700)
-				break;
-		}
-	}
+	driveRightLeft(-40, 40);
+
+	wait1Msec(300);
+
 	stopDrive();
-	initArm();
+
+	clawPreLaunch();
+
+	motor[clawL] = -80;
+	motor[clawR] = -80;
+
+	wait1Msec(900);
+
+	motor[clawL] = 0;
+	motor[clawR] = 20;
+
+	wait1Msec(500);
+
+	motor[clawR] = 0;
+
+	turn(14, 40)
+
+	launchStar();
+
+	drive(0, MOD * -110);
 
 	if(isRight) {
 		motor[clawL] = -5;
 	}else {
 		motor[clawR] = 5;
 	}
-	driveRightLeft(-100, 100);
+	driveRightLeft(-50, 50);
 	motor[clawL] = 20;
 	resetMotorEncoder(wheelFL);
-	while(abs(getMotorEncoder(wheelFL)) < 2800){}
+	while(abs(getMotorEncoder(wheelFL)) < 1400){}
 	stopDrive();
 	if(isRight) {
 		motor[clawL] = -127;
@@ -219,9 +222,9 @@ void backAutonomous2() {
 	}
 
 	if(isRight) {
-		turn(-110 - finalTurnAngle, 80)
+		turn(-110 - finalTurnAngle, 30)
 	} else {
-		turn(90 + finalTurnAngle, 80)
+		turn(90 + finalTurnAngle, 30)
 	}
 	driveRightLeft(-100,100);
 	resetMotorEncoder(wheelFL);
