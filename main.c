@@ -6,6 +6,7 @@
 #pragma config(Sensor, in5,    powerExpander,  sensorAnalog)
 #pragma config(Sensor, in7,    gyro,           sensorGyro)
 #pragma config(Sensor, in8,    ,               sensorLineFollower)
+#pragma config(Sensor, dgtl8,  fenceSwitch,    sensorTouch)
 #pragma config(Sensor, dgtl9,  sonarRight,     sensorSONAR_cm)
 #pragma config(Sensor, dgtl11, sonarLeft,      sensorSONAR_cm)
 #pragma config(Sensor, I2C_1,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
@@ -56,6 +57,7 @@ void pre_auton() {
 }
 
 task autonomous() {
+	resetEncoders();
 	clearTimer(T1);
 	if(r == 0) {
 		startAutonomous();
@@ -72,9 +74,9 @@ task autonomous() {
 	else if(r == 2) {
 		startWallDrive();
 	} else if(r == 3) {
-		startBackWallAuton();
-	} else if (r == 4) {
 		backAutonomous2();
+	} else if(r == 4) {
+		backStarsAuton();
 	}
 	string s;
 	sprintf(s, "%f", time1[T1]/1000.0);
@@ -90,7 +92,7 @@ task usercontrol() {
 	startTask(wings);
 	//startTask(lift);
 	startTask(grabber);
-	while(!(!0xDEAD ^ !0xDEFEA7ED)) {
+	while(true) {
 		wait1Msec(500);
 		string reading;
 			//sprintf(reading, "%d", SensorValue[frontLine]);

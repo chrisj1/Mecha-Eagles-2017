@@ -22,7 +22,7 @@ void knockRemainingStars() {
 		//go backward, lower lifter, and go forward
 	//to knock some extra stars off the fence
 	driveRightLeft(127,-127);
-	wait1Msec(800);
+	wait1Msec(400);
 	//lowser the lifter and extend the claws
 	stopDrive();
 	motor[clawR] = -50;
@@ -41,7 +41,7 @@ void knockRemainingStars() {
 	startTask(holdLifterPos);
 	//drive forward
 	driveRightLeft(-127,127);
-	wait1Msec(1200);
+	wait1Msec(600);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 	stopDrive();
@@ -167,101 +167,60 @@ void startBackWallAuton() {
 
 
 void backAutonomous2() {
-	int MOD;
-	if(!isRight){
-		MOD = -1;
-	}
-	turn(-40, 50);
-
-	driveRightLeft(-40, 40);
-
-	wait1Msec(300);
-
-	stopDrive();
-
 	clawPreLaunch();
-
-	motor[clawL] = -80;
-	motor[clawR] = -80;
-
-	wait1Msec(900);
-
-	motor[clawL] = 0;
-	motor[clawR] = 20;
-
-	wait1Msec(500);
-
-	motor[clawR] = 0;
-
-	turn(14, 40)
-
 	launchStar();
+	turn(-30, 50);
 
-	drive(0, MOD * -110);
-
-	if(isRight) {
-		motor[clawL] = -5;
-	}else {
-		motor[clawR] = 5;
-	}
 	driveRightLeft(-50, 50);
-	motor[clawL] = 20;
-	resetMotorEncoder(wheelFL);
-	while(abs(getMotorEncoder(wheelFL)) < 1400){}
+	resetMotorEncoder(wheelBL);
+	while(abs(getMotorEncoder(wheelBL)) < 220);
 	stopDrive();
-	if(isRight) {
-		motor[clawL] = -127;
-	} else {
-		motor[clawR] = 127;
-	}
+	motor[clawL] = -60;
+	while(SensorValue[leftClaw] > 1600);
+	motor[clawL] = 0;
+	turn(10, 40);
 
-	if(isRight){
-		motor[clawR] = 60;
-	} else {
-		motor[clawL] = -60;
-	}
 
-	if(isRight) {
-		turn(-110 - finalTurnAngle, 30)
-	} else {
-		turn(90 + finalTurnAngle, 30)
-	}
-	driveRightLeft(-100,100);
-	resetMotorEncoder(wheelFL);
-	while(abs(getMotorEncoder(wheelFL)) < 200){}
+	motor[clawR] = -20;
+
+	driveRightLeft(-70,70);
+
+	while(abs(getMotorEncoder(wheelBL)) < 1250);
 	stopDrive();
-	if(isRight) {
-		motor[clawR] = 127;
-	} else {
-		motor[clawL] = -127;
-	}
-	wait1Msec(700);
-	funcLifterUp(false);
-	resetMotorEncoder(wheelFL);
-	int speed = 0;
-	while(abs(getMotorEncoder(wheelFL)) < 1890/ cosDegrees(finalTurnAngle)){
-		speed = min(127, speed + 30);
-		driveRightLeft(-speed, speed);
-		wait1Msec(50);
-	}
-	stopDrive();
-	motor[clawR] = -100;
-	motor[clawL] = 100;
-
-	wait1Msec(300);
 
 	motor[clawR] = 0;
-	motor[clawL] = 0;
 
-	knockRemainingStars();
-
-	motor[clawR] = 100;
 	motor[clawL] = -100;
 
-	wait1Msec(300);
+	turn(-90, 100);
 
-	motor[clawR] = 0;
+	motor[clawR] = 120;
+
+	wait1Msec(2000);
+
+	funcLifterUp(true);
+
+	wait1Msec(200);
+
+	int speed;
+	for(int speed = 0; speed <= 100; speed++) {
+			driveRightLeft(-speed, speed);
+			wait1Msec(20);
+	}
+
+	while(SensorValue[fenceSwitch] != 1) {	}
+
+	stopDrive();
+
+	motor[clawL] = 50;
+	motor[clawR] = -50;
+
+	wait1Msec(700);
+
 	motor[clawL] = 0;
+	motor[clawR] = 0;
+
+	knockRemainingStars();
 }
 
 void initArm() {
@@ -296,4 +255,31 @@ void initArm() {
 	motor[wingR] = 0;
 	motor[wingL] = 0;
 	motor[wingChain] = 0;
+}
+
+void backStarsAuton() {
+	clawPreLaunch();
+	launchStar();
+
+	turn(15, 50);
+	motor[clawR] = 70;
+	while(SensorValue[rightClaw] > 1050) {}
+	motor[clawR] = 0;
+
+	turn (50, 60);
+	motor[clawL] = -120;
+	while(SensorValue[leftClaw] > 2300) {}
+	motor[clawL] = 0;
+
+	turn(25, 60);
+
+	driveRightLeft(-70,70);
+
+	resetMotorEncoder(wheelBL);
+	while(abs(getMotorEncoder(wheelBL)) < 1700);
+	stopDrive();
+
+	motor[clawR] = 80;
+	motor[clawL] = -80;
+	funcLifterUp(true);
 }

@@ -2,12 +2,21 @@
 #include "autonomous.h"
 #endif
 
+#include "math.c"
+
 void forwardsTillLine();
 
 const int START_Y_SPEED = 10;
 static int xVelocity = 120;
 static int yVelocity = START_Y_SPEED;
 static const int WHITE_THRESHOLD = 1300;
+
+void resetEncoders() {
+	resetMotorEncoder(wheelBL);
+	resetMotorEncoder(wheelBR);
+	resetMotorEncoder(wheelFL);
+	resetMotorEncoder(wheelFR);
+}
 
 bool isTurnNegative(float angle) {
 	return angle < 0;
@@ -34,8 +43,8 @@ void turn(float angle, int speed) {
 		driveRightLeft(-speed * negate, -speed * negate);
 		wait1Msec(30);
 		delta = startAngle - SensorValue[gyro]/10.0;
-		if(abs(delta - angle) < 15) {
-			speed *= .94;
+		if(abs(delta - angle) < 10) {
+			speed = max(30, speed * .98);
 		}
 	}while(abs(delta) < abs(angle + 15));
 	driveRightLeft(0,0);
@@ -75,8 +84,8 @@ void followWall(int distance) {
 	}
 }
 
-const int LIFTER_DOWN = 3550;
-const int LIFTER_UP = 209;
+const int LIFTER_DOWN = 205;
+const int LIFTER_UP = 1700;
 
 void lifterDown() {
 	while(SensorValue[lifterPot] > LIFTER_DOWN)	{
@@ -267,9 +276,9 @@ void setClawPos(int arm, int pos) {
 }
 
 void clawPreLaunch() {
-	motor[clawL] = -80;
-	motor[clawR] = 80;
-	wait1Msec(400);
+	motor[clawL] = -60;
+	motor[clawR] = 60;
+	wait1Msec(150);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 }

@@ -21,7 +21,7 @@ int askRoutine() {
 		"Forwards",
 		"Fence Drive",
 		"Back wall",
-		"Back wall 2"
+		"Stars"
 	};
 	string str = "Which Routine?";
 	int opt = displayLCDMenu(options, 5, str);
