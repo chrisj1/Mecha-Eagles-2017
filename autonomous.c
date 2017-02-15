@@ -119,6 +119,16 @@ void funcLifterUp(bool hold) {
 		startTask(holdLifterPos);
 }
 
+void funcLifterUp(bool hold, int height) {
+	while(SensorValue[lifterPot] < height)	{
+		motor[wingR] = -120;
+		motor[wingL] = 120;
+		motor[wingChain] = -120;
+	}
+	if(hold)
+		startTask(holdLifterPos);
+}
+
 void forwardsTillLine() {
 	while(!touchingLine()) {
 		motor[wheelFL] = -80;

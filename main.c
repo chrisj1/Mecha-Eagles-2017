@@ -37,17 +37,16 @@ int target;
 int r;
 bool c;
 void pre_auton() {
-	//holdClaw(clawL,leftClaw);
-	//wait1Msec(10000);
 	startTask(flashScreen);
 	string prompt = "Final Turn Angle";
-	r = askRoutine();
+	//r = askRoutine();
+	r = 4
 	string t = "test";
 	c = confirmChoiceWithUser(t,t);
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);
-	if(r == 3 || r == 4) {
+	if(r == 3) {
 		finalTurnAngle = promptInt(50, -50, 0, 5, prompt);
 	}
 	clearScreen();
