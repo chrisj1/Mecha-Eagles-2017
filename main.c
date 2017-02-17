@@ -39,10 +39,8 @@ bool c;
 void pre_auton() {
 	startTask(flashScreen);
 	string prompt = "Final Turn Angle";
-	//r = askRoutine();
-	r = 4
-	string t = "test";
-	c = confirmChoiceWithUser(t,t);
+	r = askRoutine();
+	//r = 4
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);

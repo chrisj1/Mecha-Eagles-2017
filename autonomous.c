@@ -40,6 +40,10 @@ void turn(float angle, int speed) {
 	int negate = isTurnNegative(angle) ? -1 : 1;
 	double delta;
 	do {
+		motor[wheelBR] = -speed;
+		motor[wheelFR] = -speed * .7;
+		motor[wheelFL] = speed * 7;
+		motor[wheelBL] = speed;
 		driveRightLeft(-speed * negate, -speed * negate);
 		wait1Msec(30);
 		delta = startAngle - SensorValue[gyro]/10.0;
