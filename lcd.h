@@ -13,7 +13,6 @@
 int displayLCDMenu(string* optionsP, int length, string prompt);
 void waitForPress();
 void waitForRelease();
-bool askCube();
 void clearScreen();
 void checkBattery();
 task flashScreen();

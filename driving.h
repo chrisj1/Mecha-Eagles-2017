@@ -9,4 +9,3 @@
 task expDrive();
 float joyStickExp(int joystick);
 task expDrive();
-void driveStraightForDistance(int distance);

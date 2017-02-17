@@ -26,10 +26,10 @@ task holdLifterPos() {
 	bool firstCall = true;
 	while(true) {
 		int current = SensorValue[lifterPot];
-		int proportional = target - current;
+		int proportional = -(target - current);
 		int derivative = last - current;
 
-		integral += current;
+		integral += proportional;
 
 		last = target;
 

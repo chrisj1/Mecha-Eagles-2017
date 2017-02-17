@@ -1,7 +1,8 @@
 #include "scoring.h"
 
-task holderLifterPos();
-bool holdingPos ;
+//task holderLifterPos();
+
+bool holdingPos;
 task wings(){
 	holdingPos = false;
 	while(1){

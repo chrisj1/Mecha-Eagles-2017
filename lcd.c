@@ -20,10 +20,11 @@ int askRoutine() {
 		"Full length",
 		"Forwards",
 		"Fence Drive",
-		"Back wall"
+		"Back wall",
+		"Stars"
 	};
 	string str = "Which Routine?";
-	int opt = displayLCDMenu(options, 4, str);
+	int opt = displayLCDMenu(options, 5, str);
 	return opt;
 }
 
@@ -35,15 +36,11 @@ int displayLCDMenu(string* optionsP, int length, string prompt) {
 	int currentSelected = 0;
 	while(true) {
 		int index = currentSelected % length;
-		string istr;
-		sprintf(istr, "%d", index);
-
 		//mod function is broken with negatives? another robotc bug
 		if(index < 0) {
 			index = (length + index)%length;
 		}
 		string str = *(optionsP + index);
-		writeDebugStreamLine(str);
 		displayLCDCenteredString(1, str);
 		waitForPress();
 		int btn = nLCDButtons;
@@ -71,9 +68,9 @@ int promptInt(int maxInt, int minInt, int startInt, int increment,string prompt)
 		int btn = nLCDButtons;
 		int previous = currentInt;
 		if(btn == R_BUTTON) {
-			currentInt = min(maxInt, currentInt + increment)
+			currentInt = min(maxInt, currentInt + increment);
 		} else if(btn == L_BUTTON) {
-			currentInt = max(minInt, currentInt - increment)
+			currentInt = max(minInt, currentInt - increment);
 		} else if(btn == C_BUTTON) {
 			return currentInt;
 		}
@@ -134,7 +131,11 @@ task flashScreen() {
     }
 }
 
-bool confirmChoiceWithUser() {
+bool confirmChoiceWithUser(string prompt, string choice) {
+	string opt[] = {"yes", "no"};
+	stringConcatenate(prompt, " ");
+	stringConcatenate(prompt, choice);
+	stringConcatenate(prompt, "?");
 	return true;
 }
 

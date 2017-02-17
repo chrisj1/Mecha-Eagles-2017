@@ -2,12 +2,21 @@
 #include "autonomous.h"
 #endif
 
+#include "math.c"
+
 void forwardsTillLine();
 
 const int START_Y_SPEED = 10;
 static int xVelocity = 120;
 static int yVelocity = START_Y_SPEED;
 static const int WHITE_THRESHOLD = 1300;
+
+void resetEncoders() {
+	resetMotorEncoder(wheelBL);
+	resetMotorEncoder(wheelBR);
+	resetMotorEncoder(wheelFL);
+	resetMotorEncoder(wheelFR);
+}
 
 bool isTurnNegative(float angle) {
 	return angle < 0;
@@ -26,7 +35,7 @@ void straighten(int speed) {
 	driveRightLeft(0,0);
 }
 
-void turn(double angle, int speed) {
+void turn(float angle, int speed) {
 	int startAngle = SensorValue[gyro]/10.0;
 	int negate = isTurnNegative(angle) ? -1 : 1;
 	double delta;
@@ -34,10 +43,10 @@ void turn(double angle, int speed) {
 		driveRightLeft(-speed * negate, -speed * negate);
 		wait1Msec(30);
 		delta = startAngle - SensorValue[gyro]/10.0;
-		if(abs(delta - angle) < 15) {
-			speed *= .97;
+		if(abs(delta - angle) < 10) {
+			speed = max(30, speed * .98);
 		}
-	}while(abs(delta) < abs(angle));
+	}while(abs(delta) < abs(angle + 15));
 	driveRightLeft(0,0);
 }
 
@@ -55,12 +64,7 @@ void drive(int y, int x) {
 	motor[wheelBR] = -(y - x);
 	motor[wheelFR] = -(y + x);
 }
-/*
-void drive(int x, int y) {
-//for some reason, we need to reverse x and y
-driveOriginal(x, y);
-}
-*/
+
 task increaseY() {
 	while (1) {
 		yVelocity--;
@@ -80,11 +84,11 @@ void followWall(int distance) {
 	}
 }
 
-const int LIFTER_DOWN = 3550;
-const int LIFTER_UP = 1860;
+const int LIFTER_DOWN = 205;
+const int LIFTER_UP = 1700;
 
 void lifterDown() {
-	while(SensorValue[lifterPot] < LIFTER_DOWN)	{
+	while(SensorValue[lifterPot] > LIFTER_DOWN)	{
 		motor[wingR] = -64;
 		motor[wingL] = 64;
 		motor[wingChain] = 64;
@@ -95,25 +99,34 @@ void lifterDown() {
 }
 
 task lifterUp() {
-	while(SensorValue[lifterPot] > LIFTER_UP)	{
-		motor[wingR] = -120;
-		motor[wingL] = 120;
-		motor[wingChain] = -120;
+	while(SensorValue[lifterPot] < LIFTER_UP)	{
+		motor[wingR] = -127;
+		motor[wingL] = 127;
+		motor[wingChain] = -127;
 	}
 	motor[wingR] = 0;
 	motor[wingL] = 0;
 	motor[wingChain] = 0;
 }
 
-void funcLifterUp() {
-	while(SensorValue[lifterPot] > LIFTER_UP)	{
+void funcLifterUp(bool hold) {
+	while(SensorValue[lifterPot] < LIFTER_UP)	{
 		motor[wingR] = -120;
 		motor[wingL] = 120;
 		motor[wingChain] = -120;
 	}
-	motor[wingR] = -40;
-	motor[wingL] = 40;
-	motor[wingChain] = -40;
+	if(hold)
+		startTask(holdLifterPos);
+}
+
+void funcLifterUp(bool hold, int height) {
+	while(SensorValue[lifterPot] < height)	{
+		motor[wingR] = -120;
+		motor[wingL] = 120;
+		motor[wingChain] = -120;
+	}
+	if(hold)
+		startTask(holdLifterPos);
 }
 
 void forwardsTillLine() {
@@ -273,9 +286,9 @@ void setClawPos(int arm, int pos) {
 }
 
 void clawPreLaunch() {
-	motor[clawL] = -40;
-	motor[clawR] = 40;
-	wait1Msec(400);
+	motor[clawL] = -60;
+	motor[clawR] = 60;
+	wait1Msec(150);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 }
