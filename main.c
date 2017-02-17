@@ -6,7 +6,6 @@
 #pragma config(Sensor, in5,    powerExpander,  sensorAnalog)
 #pragma config(Sensor, in7,    gyro,           sensorGyro)
 #pragma config(Sensor, in8,    ,               sensorLineFollower)
-#pragma config(Sensor, dgtl8,  fenceSwitch,    sensorTouch)
 #pragma config(Sensor, dgtl9,  sonarRight,     sensorSONAR_cm)
 #pragma config(Sensor, dgtl11, sonarLeft,      sensorSONAR_cm)
 #pragma config(Sensor, I2C_1,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
@@ -31,18 +30,19 @@
 #pragma userControlDuration(120)
 int target;
 #include "main.h"
+
 #include "backWallAutonomous.c"
 
 #include "Vex_Competition_Includes.c"
+
 int r;
-bool c;
+
 void pre_auton() {
+	//holdClaw(clawL,leftClaw);
+	//wait1Msec(10000);
 	startTask(flashScreen);
 	string prompt = "Final Turn Angle";
-	//r = askRoutine();
-	r = 4
-	string t = "test";
-	c = confirmChoiceWithUser(t,t);
+	r = askRoutine();
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);
@@ -56,8 +56,6 @@ void pre_auton() {
 }
 
 task autonomous() {
-	resetEncoders();
-	clearTimer(T1);
 	if(r == 0) {
 		startAutonomous();
 		while(true) {
@@ -67,21 +65,15 @@ task autonomous() {
 	else if(r == 1) {
 		startAutonomous();
 		setDriveMotorSpeeds(100);
-		wait1Msec(1100);
+		wait1Msec(1100)
+		;
 		setDriveMotorSpeeds(0);
 	}
 	else if(r == 2) {
 		startWallDrive();
 	} else if(r == 3) {
-		backAutonomous2();
-	} else if(r == 4) {
-		backStarsAuton();
+		startBackWallAuton();
 	}
-	string s;
-	sprintf(s, "%f", time1[T1]/1000.0);
-	writeDebugStream("autonomous done in: ");
-	writeDebugStreamLine(s);
-
 }
 
 task usercontrol() {
@@ -91,7 +83,7 @@ task usercontrol() {
 	startTask(wings);
 	//startTask(lift);
 	startTask(grabber);
-	while(true) {
+	while(!(!0xDEAD ^ !0xDEFEA7ED)) {
 		wait1Msec(500);
 		string reading;
 			//sprintf(reading, "%d", SensorValue[frontLine]);

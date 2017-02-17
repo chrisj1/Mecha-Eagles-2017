@@ -1,23 +1,22 @@
 #include "driving.h"
 
-
 task expDrive() {
 	while (true) {
+
+		int x1;
+		int x2;
+		int y1;
 		//Code borrowed from RobotC example code
 		//controls the axes of motion for mechanum wheels
 
-		//int x = joyStickExp(vexRT[Ch3]);
-		//int y = -joyStickExp(vexRT[Ch4]);
+		x1 = joyStickExp(vexRT[Ch3]);
+		y1 = -joyStickExp(vexRT[Ch4]);
+		x2 = joyStickExp(vexRT[Ch1]);
 
-		int x = joyStickExp(vexRT[Ch3]);
-		int y = joyStickExp(-vexRT[Ch4]);
-
-		int r = -(y + x);
-		int l = -(y - x);
-		motor[wheelFL] = l;
-		motor[wheelBL] = l;
-		motor[wheelBR] = r;
-		motor[wheelFR] = r;
+		motor[wheelFL] = (x2 + x1 - y1) * toggleSpeed;
+		motor[wheelBL] = (x2 + x1 + y1) * toggleSpeed;
+		motor[wheelBR] = (x2 - x1 + y1) * toggleSpeed;
+		motor[wheelFR] = (x2 - x1 - y1) * toggleSpeed;
 	}
 }
 
