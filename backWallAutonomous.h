@@ -1,10 +1,6 @@
-#ifndef backWallAutonomous_h
+#ifndef BACK_WALL_AUTONOMOUS_H
+#define BACK_WALL_AUTONOMOUS_H
 
-#ifndef sensor_h
-#include "sensor.c"
-#endif
+#include "backWallAutonomous.c"
 
-#ifndef driving_h
-#include "driving.c"
-#endif
 #endif

@@ -1,9 +1,3 @@
-#ifndef autonomous_h
-#include "autonomous.h"
-#endif
-
-#include "math.c"
-
 void forwardsTillLine();
 
 const int START_Y_SPEED = 10;

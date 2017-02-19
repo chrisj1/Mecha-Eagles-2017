@@ -29,13 +29,12 @@
 #pragma competitionControl(Competition)
 #pragma autonomousDuration(15)
 #pragma userControlDuration(120)
+
 int target;
 #include "main.h"
-#include "backWallAutonomous.c"
 
 #include "Vex_Competition_Includes.c"
 int r;
-bool c;
 void pre_auton() {
 	startTask(flashScreen);
 	string prompt = "Final Turn Angle";

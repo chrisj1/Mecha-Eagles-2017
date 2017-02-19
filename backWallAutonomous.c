@@ -77,7 +77,7 @@ void startBackWallAuton() {
 	stopDrive();
 	//move claw to ctarting pos
 	startTask(wingsOutAsync);
-	wait1Msec(1000)
+	wait1Msec(1000);
 	//close right claw while driving
 	if(isRight) {
 		motor[clawR] = 30;
@@ -85,7 +85,7 @@ void startBackWallAuton() {
 		motor[clawL] = 30;
 	}
 	//move forwards to collect stars and cubes
-	driveRightLeft(-120, 90)
+	driveRightLeft(-120, 90);
 	resetMotorEncoder(wheelFR);
 	//push wings down
 	const int WING_SPEED = 60;
@@ -173,10 +173,10 @@ void backAutonomous2() {
 
 	driveRightLeft(-50, 50);
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 220);
+	while(abs(getMotorEncoder(wheelBL)) < 220){}
 	stopDrive();
 	motor[clawL] = -60;
-	while(SensorValue[leftClaw] > 1600);
+	while(SensorValue[leftClaw] > 1600){}
 	motor[clawL] = 0;
 	turn(10, 40);
 
@@ -185,7 +185,7 @@ void backAutonomous2() {
 
 	driveRightLeft(-70,70);
 
-	while(abs(getMotorEncoder(wheelBL)) < 1250);
+	while(abs(getMotorEncoder(wheelBL)) < 1250){}
 	stopDrive();
 
 	motor[clawR] = 0;
@@ -202,7 +202,6 @@ void backAutonomous2() {
 
 	wait1Msec(200);
 
-	int speed;
 	for(int speed = 0; speed <= 100; speed++) {
 			driveRightLeft(-speed, speed);
 			wait1Msec(20);
@@ -264,7 +263,7 @@ void backStarsAuton() {
 	driveRightLeft(-70,70);
 
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 150);
+	while(abs(getMotorEncoder(wheelBL)) < 150){}
 	stopDrive();
 
 	turn(15, 50);
@@ -295,7 +294,7 @@ void backStarsAuton() {
 	driveRightLeft(-80,80);
 
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 1700);
+	while(abs(getMotorEncoder(wheelBL)) < 1700){}
 	stopDrive();
 
 	driveRightLeft(-100,-100);
@@ -309,7 +308,7 @@ void backStarsAuton() {
 
 	driveRightLeft(-100,100);
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 650);
+	while(abs(getMotorEncoder(wheelBL)) < 650){}
 	stopDrive();
 
 	motor[clawR] = 80;
@@ -320,7 +319,7 @@ void backStarsAuton() {
 	driveRightLeft(100,-100);
 
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 200);
+	while(abs(getMotorEncoder(wheelBL)) < 200){}
 	stopDrive();
 
 	funcLifterUp(true, 1900);
@@ -328,8 +327,8 @@ void backStarsAuton() {
 
 	driveRightLeft(-110,110);
 
-	clearTimer(T1)
-	while(SensorValue[sonarFence] > 20 || timer1 > 2000);
+	clearTimer(T1);
+	while(SensorValue[sonarFence] > 20 || timer1 > 2000){}
 	motor[clawR] = -80;
 	motor[clawL] = 80;
 	stopDrive();

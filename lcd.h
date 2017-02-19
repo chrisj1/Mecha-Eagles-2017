@@ -1,14 +1,8 @@
-#ifndef lcd_h
-#define lcd_h
-#endif
+#ifndef LCD_H
+#define LCD_H
 
-#ifndef sensor_h
-#include "sensor.c"
-#endif
-
-#ifndef consts_h
 #include "consts.h"
-#endif
+#include "sensor.h"
 
 int displayLCDMenu(string* optionsP, int length, string prompt);
 void waitForPress();
@@ -17,3 +11,7 @@ void clearScreen();
 void checkBattery();
 task flashScreen();
 int askRoutine();
+
+#include "lcd.c"
+
+#endif

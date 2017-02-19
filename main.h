@@ -1,35 +1,15 @@
 bool isRight = false;
+int finalTurnAngle;
 
 task holdLifterPos();
 
-#include "math.c";
-
-#ifndef driving_h
-#include "driving.c"
-#endif
-
-
-#ifndef autonomous_h
-#include "autonomous.c"
-#endif
-
-#ifndef scoring_h
-#include "scoring.c"
-#endif
-
-#ifndef main_h
-#define main_h
-#endif
-
-int finalTurnAngle;
-
-#ifndef lcd_h
-#include "lcd.c"
-#endif
-
-#ifndef sensor_h
-#include "sensor.c"
-#endif
+#include "math.h";
+#include "driving.h"
+#include "autonomous.h"
+#include "backWallAutonomous.h"
+#include "scoring.h"
+#include "lcd.h"
+#include "sensor.h"
 
 #undef true
 #define true !(!0xDEAD ^ !0xDEFEA7ED)
