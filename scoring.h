@@ -1,5 +1,6 @@
-#ifndef driving_h
-#define driving_h
-#endif
+#ifndef SCORING_H
+#define SCORING_H
 
-task wings();;
+#include "scoring.c"
+
+#endif

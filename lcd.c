@@ -1,5 +1,3 @@
-#include "lcd.h"
-
 const int L_BUTTON = 1;
 const int C_BUTTON = 2;
 const int R_BUTTON = 4;

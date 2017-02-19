@@ -1,6 +1,3 @@
-#include "sensor.h"
-
-
 
 float getExpanderBatteryVoltage() {
 	return (SensorValue[in1])/182.4;
