@@ -89,29 +89,24 @@ void lifterDown() {
 	while(SensorValue[lifterPot] > LIFTER_DOWN)	{
 		motor[wingR] = -64;
 		motor[wingL] = 64;
-		motor[wingChain] = 64;
 	}
 	motor[wingR] = 0;
 	motor[wingL] = 0;
-	motor[wingChain] = 0;
 }
 
 task lifterUp() {
 	while(SensorValue[lifterPot] < LIFTER_UP)	{
 		motor[wingR] = -127;
 		motor[wingL] = 127;
-		motor[wingChain] = -127;
 	}
 	motor[wingR] = 0;
 	motor[wingL] = 0;
-	motor[wingChain] = 0;
 }
 
 void funcLifterUp(bool hold) {
 	while(SensorValue[lifterPot] < LIFTER_UP)	{
 		motor[wingR] = -120;
 		motor[wingL] = 120;
-		motor[wingChain] = -120;
 	}
 	if(hold)
 		startTask(holdLifterPos);
@@ -121,7 +116,6 @@ void funcLifterUp(bool hold, int height) {
 	while(SensorValue[lifterPot] < height)	{
 		motor[wingR] = -120;
 		motor[wingL] = 120;
-		motor[wingChain] = -120;
 	}
 	if(hold)
 		startTask(holdLifterPos);
@@ -194,11 +188,9 @@ void startWallDrive() {
 		if (getMotorEncoder(wheelFL) >= 140 && getMotorEncoder(wheelFL) <= 165) {
 			motor[wingR] = 64;
 			motor[wingL] = -64;
-			motor[wingChain] = -64;
 			} else {
 			motor[wingR] = 0;
 			motor[wingL] = 0;
-			motor[wingChain] = 0;
 		}
 	}
 	//startTask(lifterUp);
@@ -207,11 +199,9 @@ void startWallDrive() {
 		if (getMotorEncoder(wheelFL) >= 1800 && getMotorEncoder(wheelFL) <= 1815) {
 			motor[wingR] = -50;
 			motor[wingL] = 50;
-			motor[wingChain] = 50;
 		} else {
 			motor[wingR] = 0;
 			motor[wingL] = 0;
-			motor[wingChain] = 0;
 		}
 	}
 	driveRightLeft(0,0);
@@ -220,15 +210,12 @@ void startWallDrive() {
 void launchStar(){
 	motor[wingR] = -120;
 	motor[wingL] = 120;
-	motor[wingChain] = -120;
 	wait1Msec(200);
 	motor[wingR] = 120;
 	motor[wingL] = -120;
-	motor[wingChain] = 120;
 	wait1Msec(200);
 	motor[wingR] = 0;
 	motor[wingL] = 0;
-	motor[wingChain] = 0;
 }
 
 void turnTowardsStars(bool isOnRight) {

@@ -35,7 +35,6 @@ void knockRemainingStars() {
 	while(SensorValue[lifterPot] > 1375) {
 		motor[wingR] = (60);
 		motor[wingL] = (-60);
-		motor[wingChain] = 60;
 	}
 
 	startTask(holdLifterPos);
@@ -91,7 +90,6 @@ void startBackWallAuton() {
 	const int WING_SPEED = 60;
 	motor[wingR] = WING_SPEED;
 	motor[wingL] = -WING_SPEED;
-	motor[wingChain] = WING_SPEED;
 	if(isRight){
 		motor[clawL] = -20;
 	} else {
@@ -105,7 +103,6 @@ void startBackWallAuton() {
 	resetMotorEncoder(wheelBR);
 	motor[wingR] = WING_SPEED;
 	motor[wingL] = -WING_SPEED;
-	motor[wingChain] = WING_SPEED;
 	while(abs(getMotorEncoder(wheelFR)) < 2200) {}
 	stopDrive();
 	motor[clawR] = 127;
@@ -144,12 +141,10 @@ void startBackWallAuton() {
 	while(SensorValue[lifterPot] < 2107) {
 		motor[wingR] = (60);
 		motor[wingL] = (-60);
-		motor[wingChain] = 60;
 	}
 
 	motor[wingR] = (-20);
 	motor[wingL] = (20);
-	motor[wingChain] = -20;
 
 	startTask(holdLifterPos);
 	//drive forward
@@ -167,9 +162,11 @@ void startBackWallAuton() {
 
 
 void backAutonomous2() {
+	//inital preparation - extends claws
 	clawPreLaunch();
 	launchStar();
 	turn(-30, 50);
+
 
 	driveRightLeft(-50, 50);
 	resetMotorEncoder(wheelBL);
@@ -181,45 +178,48 @@ void backAutonomous2() {
 	turn(10, 40);
 
 
+	//drive until we get all three stars
 	motor[clawR] = -20;
-
 	driveRightLeft(-70,70);
-
 	while(abs(getMotorEncoder(wheelBL)) < 1250){}
 	stopDrive();
 
+	//gets the cube and turns towards the fence
 	motor[clawR] = 0;
-
 	motor[clawL] = -100;
-
 	turn(-90, 100);
-
 	motor[clawR] = 120;
-
 	wait1Msec(2000);
 
+	//brings up the cube
 	funcLifterUp(true);
-
 	wait1Msec(200);
 
+	//goes towards the fence with increasing speed
 	for(int speed = 0; speed <= 100; speed++) {
 			driveRightLeft(-speed, speed);
 			wait1Msec(20);
 	}
-
 	wait1Msec(2000);
-
 	stopDrive();
 
+	//releases the claws
 	motor[clawL] = 50;
 	motor[clawR] = -50;
-
 	wait1Msec(700);
 
+	//stops
 	motor[clawL] = 0;
 	motor[clawR] = 0;
-
+	//knocks off the rest of the stars on the fence
 	knockRemainingStars();
+	//wins
+	win();
+}
+
+bool win() {
+	//skills
+	return true;
 }
 
 void initArm() {
@@ -227,11 +227,9 @@ void initArm() {
 	while(SensorValue[lifterPot] < 900)	{
 		motor[wingR] = -100;
 		motor[wingL] = 100;
-		motor[wingChain] = -100;
 	}
 	motor[wingR] = -0;
 	motor[wingL] = 0;
-	motor[wingChain] = -0;
 	startTask(holdLifterPos);
 
 	if(isRight) {
@@ -248,12 +246,10 @@ void initArm() {
 
 	motor[wingR] = 100;
 	motor[wingL] = -100;
-	motor[wingChain] = 100;
 
 	wait1Msec(350);
 	motor[wingR] = 0;
 	motor[wingL] = 0;
-	motor[wingChain] = 0;
 }
 
 void backStarsAuton() {

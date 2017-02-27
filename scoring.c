@@ -15,7 +15,6 @@ task wings(){
 			//}
 			motor[wingL] = 127;
 			motor[wingR] = -127;
-			motor[wingChain] = -127;
 		} else if(vexRT(Btn8D)) {
 			//if(holdingPos) {
 				stopTask(holdLifterPos);
@@ -23,12 +22,10 @@ task wings(){
 			//}
 			motor[wingL] = -60;
 			motor[wingR] = 60;
-			motor[wingChain] = 60;
 		} else {
 			if(!holdingPos) {
 				motor[wingL] = 0;
 				motor[wingR] = 0;
-				motor[wingChain] = 0;
 			}
 		}
 	}
@@ -73,5 +70,31 @@ task grabber(){
 void setLifterMotorValue(int s) {
 		motor[wingL] = s;
 		motor[wingR] = -s;
-		motor[wingChain] = -s;
+}
+
+task partnerRobotLifter() {
+	//controls the robot lifter with partner's controller
+	while (true) {
+		//make sure stage 1 is activated before stage 2
+		bool stageOneActivated = false;
+
+		//first stage of launching the robot lifter
+		if ( vexRT(Btn7UXmtr2) && vexRT(Btn7U) ) {
+			motor[robotLifterArm] = 100;
+			wait1Msec(0);
+			stageOneActivated = true;
+			//motor[robotLifterL] = 100;
+		} else if(vexRT(Btn7DXmtr2) && vexRT(Btn7D)) {
+			motor[robotLifterArm] = -100;
+			wait1Msec(0);
+			stageOneActivated = true;
+		}
+
+		//second stage of launching the robot lifter
+		if (vexRT(Btn7LXmtr2) && vexRT(Btn7L) && stageOneActivated) {
+			motor[takeAStepBack] = 100;
+		} else {
+			motor[takeAStepBack] = 0;
+		}
+	}
 }
