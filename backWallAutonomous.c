@@ -30,9 +30,9 @@ void knockRemainingStars() {
 	wait1Msec(600);
 	motor[clawR] = 0;
 	motor[clawL] = 0;
-
+	stopTask(holdLifterPos);
 	//stop holding pos
-	while(SensorValue[lifterPot] > 1375) {
+	while(SensorValue[lifterPot] < 2300) {
 		motor[wingR] = (60);
 		motor[wingL] = (-60);
 	}
@@ -170,7 +170,7 @@ void backAutonomous2() {
 
 	driveRightLeft(-50, 50);
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 220){}
+	while(abs(getMotorEncoder(wheelBL)) < 240){}
 	stopDrive();
 	motor[clawL] = -60;
 	while(SensorValue[leftClaw] > 1600){}
@@ -196,11 +196,11 @@ void backAutonomous2() {
 	wait1Msec(200);
 
 	//goes towards the fence with increasing speed
-	for(int speed = 0; speed <= 100; speed++) {
+	for(int speed = 0; speed < 120; speed++) {
 			driveRightLeft(-speed, speed);
 			wait1Msec(20);
 	}
-	wait1Msec(2000);
+	wait1Msec(1000);
 	stopDrive();
 
 	//releases the claws
@@ -213,13 +213,6 @@ void backAutonomous2() {
 	motor[clawR] = 0;
 	//knocks off the rest of the stars on the fence
 	knockRemainingStars();
-	//wins
-	win();
-}
-
-bool win() {
-	//skills
-	return true;
 }
 
 void initArm() {

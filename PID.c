@@ -20,6 +20,7 @@ void holdClaw(int motorPort, int sensorPort) {
 }
 
 task holdLifterPos() {
+
 	target = SensorValue[lifterPot];
 	int last = target;
 	int integral;
@@ -33,11 +34,13 @@ task holdLifterPos() {
 
 		last = target;
 
-		float motorValue = max(-30, LIFTER_PK * proportional +
+		float motorValue = -max(-30, LIFTER_PK * proportional +
 			LIFTER_DK * derivative + LIFTER_IK * integral);
 			setLifterMotorValue(motorValue);
 			wait1Msec(10);
+
 		}
+
 }
 
 task holdClawPos() {
