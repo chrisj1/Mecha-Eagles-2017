@@ -30,6 +30,7 @@ void straighten(int speed) {
 }
 
 void turn(float angle, int speed) {
+	if(angle == 0) return;
 	int startAngle = SensorValue[gyro]/10.0;
 	int negate = isTurnNegative(angle) ? -1 : 1;
 	double delta;

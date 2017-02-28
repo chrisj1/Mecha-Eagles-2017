@@ -20,8 +20,8 @@ task wings(){
 				stopTask(holdLifterPos);
 				holdingPos = false;
 			//}
-			motor[wingL] = -60;
-			motor[wingR] = 60;
+			motor[wingL] = -90;
+			motor[wingR] = 90;
 		} else {
 			if(!holdingPos) {
 				motor[wingL] = 0;
@@ -75,7 +75,7 @@ void setLifterMotorValue(int s) {
 task partnerRobotLifter() {
 	//controls the robot lifter with partner's controller
 //make sure stage 1 is activated before stage 2
-		bool stageOneActivated = false;
+	bool stageOneActivated = false;
 	while (true) {
 
 		//first stage of launching the robot lifter

@@ -195,12 +195,14 @@ void backAutonomous2() {
 	funcLifterUp(true);
 	wait1Msec(200);
 
+	turn(finalTurnAngle, 60);
+
 	//goes towards the fence with increasing speed
 	for(int speed = 0; speed < 120; speed++) {
 			driveRightLeft(-speed, speed);
 			wait1Msec(20);
 	}
-	wait1Msec(1000);
+	wait1Msec(750/cosDegrees(finalTurnAngle));
 	stopDrive();
 
 	//releases the claws
