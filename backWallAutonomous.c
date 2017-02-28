@@ -50,6 +50,7 @@ task wingsOutAsync {
 	wingsOutDiff();
 }
 
+//****deprecated****
 void startBackWallAuton() {
 	clawPreLaunch();
 	launchStar();
@@ -165,23 +166,23 @@ void backAutonomous2() {
 	//inital preparation - extends claws
 	clawPreLaunch();
 	launchStar();
-	turn(-30, 50);
+	turn(-35, 50);
 
 
-	driveRightLeft(-50, 50);
+	driveRightLeft(-70, 70);
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 240){}
+	while(abs(getMotorEncoder(wheelBL)) < 190){}
 	stopDrive();
-	motor[clawL] = -60;
+	motor[clawL] = -120;
 	while(SensorValue[leftClaw] > 1600){}
 	motor[clawL] = 0;
-	turn(10, 40);
+	turn(15, 40);
 
 
 	//drive until we get all three stars
 	motor[clawR] = -20;
-	driveRightLeft(-70,70);
-	while(abs(getMotorEncoder(wheelBL)) < 1250){}
+	driveRightLeft(-80,80);
+	while(abs(getMotorEncoder(wheelBL)) < 1260){}
 	stopDrive();
 
 	//gets the cube and turns towards the fence

@@ -9,8 +9,8 @@ task expDrive() {
 		int x = joyStickExp(vexRT[Ch3]);
 		int y = joyStickExp(-vexRT[Ch4]);
 
-		int r = -(y + x);
-		int l = -(y - x);
+		int r = -((y + x)*.8;
+		int l = -((y - x)*.8;
 		motor[wheelFL] = l;
 		motor[wheelBL] = l;
 		motor[wheelBR] = r;
