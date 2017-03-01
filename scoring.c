@@ -15,17 +15,20 @@ task wings(){
 			//}
 			motor[wingL] = 127;
 			motor[wingR] = -127;
+			motor[wingChain] = 127;
 		} else if(vexRT(Btn8D)) {
 			//if(holdingPos) {
 				stopTask(holdLifterPos);
 				holdingPos = false;
 			//}
-			motor[wingL] = -90;
-			motor[wingR] = 90;
+			motor[wingL] = -60;
+			motor[wingR] = 60;
+			motor[wingChain] = -60;
 		} else {
 			if(!holdingPos) {
 				motor[wingL] = 0;
 				motor[wingR] = 0;
+				motor[wingChain] = 0;
 			}
 		}
 	}
@@ -70,6 +73,7 @@ task grabber(){
 void setLifterMotorValue(int s) {
 		motor[wingL] = s;
 		motor[wingR] = -s;
+		motor[wingChain] = s;
 }
 
 task partnerRobotLifter() {
@@ -94,9 +98,9 @@ task partnerRobotLifter() {
 
 		//second stage of launching the robot lifter
 		if (vexRT(Btn7L) && vexRT(Btn7LXmtr2)&& stageOneActivated) {
-			motor[robotLift] = 100;
+			//motor[robotLift] = 100;
 		} else {
-			motor[robotLift] = 0;
+			//motor[robotLift] = 0;
 		}
 	}
 }

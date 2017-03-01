@@ -35,6 +35,7 @@ void knockRemainingStars() {
 	while(SensorValue[lifterPot] < 2300) {
 		motor[wingR] = (60);
 		motor[wingL] = (-60);
+		motor[wingChain] = (-60);
 	}
 
 	startTask(holdLifterPos);
@@ -168,7 +169,6 @@ void backAutonomous2() {
 	launchStar();
 	turn(-35, 50);
 
-
 	driveRightLeft(-70, 70);
 	resetMotorEncoder(wheelBL);
 	while(abs(getMotorEncoder(wheelBL)) < 190){}
@@ -196,7 +196,7 @@ void backAutonomous2() {
 	funcLifterUp(true);
 	wait1Msec(200);
 
-	turn(finalTurnAngle, 60);
+	turn(finalTurnAngle, 100);
 
 	//goes towards the fence with increasing speed
 	for(int speed = 0; speed < 120; speed++) {
@@ -258,7 +258,7 @@ void backStarsAuton() {
 	while(abs(getMotorEncoder(wheelBL)) < 150){}
 	stopDrive();
 
-	turn(15, 50);
+	turn(15, 100);
 	motor[clawR] = 120;
 	while(SensorValue[rightClaw] > 100) {}
 
@@ -267,7 +267,7 @@ void backStarsAuton() {
 	//motor[wingL] = -50;
 	motor[wingR] = 50;
 
-	turn (67, 50);
+	turn (67, 100);
 
 	motor[clawR] = 0;
 
@@ -278,7 +278,7 @@ void backStarsAuton() {
 	while(SensorValue[leftClaw] > 2300) {}
 	motor[clawL] = 0;
 
-	turn(24, 60);
+	turn(24, 100);
 
 	motor[clawL] = -120;
 	while(SensorValue[leftClaw] > 2300) {}
@@ -315,7 +315,7 @@ void backStarsAuton() {
 	stopDrive();
 
 	funcLifterUp(true, 1900);
-	turn(-100, 70);
+	turn(-100, 100);
 
 	driveRightLeft(-110,110);
 
