@@ -30,20 +30,24 @@ void straighten(int speed) {
 }
 
 void turn(float angle, int speed) {
+	turn(angle, speed, 40);
+}
+
+void turn(float angle, int speed, int min_value) {
 	if(angle == 0) return;
 	int startAngle = SensorValue[gyro]/10.0;
 	int negate = isTurnNegative(angle) ? -1 : 1;
 	double delta;
 	do {
 		motor[wheelBR] = -speed;
-		motor[wheelFR] = -speed * .7;
-		motor[wheelFL] = speed * 7;
+		motor[wheelFR] = -speed;
+		motor[wheelFL] = speed;
 		motor[wheelBL] = speed;
 		driveRightLeft(-speed * negate, -speed * negate);
 		wait1Msec(30);
 		delta = startAngle - SensorValue[gyro]/10.0;
 		if(abs(delta - angle) < 10) {
-			speed = max(30, speed * .98);
+			speed = max(min_value, speed * .998);
 		}
 	}while(abs(delta) < abs(angle + 15));
 	driveRightLeft(0,0);
@@ -224,9 +228,9 @@ void launchStar(){
 	motor[wingL] = -120;
 	motor[wingChain] = -120;
 	wait1Msec(200);
-	motor[wingR] = 0;
-	motor[wingL] = 0;
-	motor[wingChain] = 0;
+	motor[wingR] = 40;
+	motor[wingL] = -40;
+	motor[wingChain] = -40;
 }
 
 void turnTowardsStars(bool isOnRight) {
@@ -282,9 +286,9 @@ void setClawPos(int arm, int pos) {
 }
 
 void clawPreLaunch() {
-	motor[clawL] = -120;
-	motor[clawR] = 120;
-	wait1Msec(500);
+	motor[clawL] = -127;
+	motor[clawR] = 70;
+	wait1Msec(400);
 	motor[clawL] = 0;
 	motor[clawR] = 0;
 }
