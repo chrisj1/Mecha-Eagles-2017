@@ -15,11 +15,11 @@ int askPos() {
 
 int askRoutine() {
 	string options[] = {
-		"Full length",
-		"Forwards",
-		"Fence Drive",
+		"Not this one",
+		"Or this one",
+		"Nothing",
 		"Back wall",
-		"Stars"
+		"Stars",
 	};
 	string str = "Which Routine?";
 	int opt = displayLCDMenu(options, 5, str);

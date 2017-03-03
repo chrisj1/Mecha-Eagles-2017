@@ -13,12 +13,12 @@
 #pragma config(Sensor, I2C_2,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_3,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
 #pragma config(Sensor, I2C_4,  ,               sensorQuadEncoderOnI2CPort,    , AutoAssign )
-#pragma config(Motor,  port1,           clawL,         tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port1,           robotLifter,   tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           wheelFR,       tmotorVex393_MC29, openLoop, encoderPort, I2C_1)
 #pragma config(Motor,  port3,           wheelBR,       tmotorVex393_MC29, openLoop, encoderPort, I2C_4)
 #pragma config(Motor,  port4,           wheelBL,       tmotorVex393_MC29, openLoop, encoderPort, I2C_3)
 #pragma config(Motor,  port5,           wheelFL,       tmotorVex393_MC29, openLoop, encoderPort, I2C_2)
-#pragma config(Motor,  port6,           robotLifterArmUp, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           clawL,         tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           wingR,         tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           wingChain,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port9,           wingL,         tmotorVex393_MC29, openLoop)
@@ -29,6 +29,9 @@
 #pragma competitionControl(Competition)
 #pragma autonomousDuration(15)
 #pragma userControlDuration(120)
+
+#define DEAN 1;
+const int inos = DEAN;
 
 int target;
 #include "main.h"
@@ -55,6 +58,7 @@ void pre_auton() {
 }
 
 task autonomous() {
+	if(r == 2) return;
 	resetEncoders();
 	clearTimer(T1);
 	if(r == 0) {

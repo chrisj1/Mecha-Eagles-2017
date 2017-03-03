@@ -79,28 +79,18 @@ void setLifterMotorValue(int s) {
 task partnerRobotLifter() {
 	//controls the robot lifter with partner's controller
 //make sure stage 1 is activated before stage 2
-	bool stageOneActivated = false;
+	//bool stageOneActivated = false;
 	while (true) {
 
 		//first stage of launching the robot lifter
 		if (vexRT(Btn7UXmtr2) && vexRT(Btn7U)) {
-			motor[robotLifterArmUp] = 100;
+			motor[robotLifter] = 127;
 			wait1Msec(0);
-			stageOneActivated = true;
-			//motor[robotLifterL] = 100;
 		} else if(vexRT(Btn7D) && vexRT(Btn7DXmtr2)) {
-			motor[robotLifterArmUp] = -100;
+			motor[robotLifter] = -127;
 			wait1Msec(0);
-			stageOneActivated = true;
 		} else {
-			motor[robotLifterArmUp] = 0;
-		}
-
-		//second stage of launching the robot lifter
-		if (vexRT(Btn7L) && vexRT(Btn7LXmtr2)&& stageOneActivated) {
-			//motor[robotLift] = 100;
-		} else {
-			//motor[robotLift] = 0;
+			motor[robotLifter] = 0;
 		}
 	}
 }

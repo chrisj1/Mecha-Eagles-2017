@@ -178,7 +178,6 @@ void backAutonomous2() {
 	motor[clawL] = 0;
 	turn(15, 50);
 
-
 	//drive until we get all three stars
 	motor[clawR] = -20;
 	driveRightLeft(-100,100);
@@ -189,6 +188,13 @@ void backAutonomous2() {
 	motor[clawR] = 0;
 	motor[clawL] = -100;
 	turn(-90, 120);
+
+	//goes forward a small amount to approach cube
+	resetMotorEncoder(wheelBL)
+	driveRightLeft(-100,100);
+	while(abs(getMotorEncoder(wheelBL)) < 90){}
+	stopDrive();
+
 	motor[clawR] = 120;
 	wait1Msec(2000);
 
@@ -252,20 +258,21 @@ void backStarsAuton() {
 	clawPreLaunch();
 	launchStar();
 
-	driveRightLeft(-70,70);
+	driveRightLeft(-90, 90);
 
 	resetMotorEncoder(wheelBL);
 	while(abs(getMotorEncoder(wheelBL)) < 150){}
 	stopDrive();
 
-	turn(15, 100);
+	turn(15, 120, 100);
 	motor[clawR] = 120;
 	while(SensorValue[rightClaw] > 100) {}
 
 	wait1Msec(500);
 	//Hold lifter down
-	//motor[wingL] = -50;
-	motor[wingR] = 50;
+	motor[wingL] = -30;
+	motor[wingR] = 30;
+	motor[wingChain] = -30;
 
 	turn (67, 100);
 
@@ -286,7 +293,7 @@ void backStarsAuton() {
 	driveRightLeft(-80,80);
 
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 1700){}
+	while(abs(getMotorEncoder(wheelBL)) < 1900){}
 	stopDrive();
 
 	driveRightLeft(-100,-100);
