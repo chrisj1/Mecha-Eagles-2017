@@ -85,7 +85,7 @@ void startBackWallAuton() {
 	} else {
 		motor[clawL] = 30;
 	}
-	//move forwards to collect stars and cubes
+	//move forwards to collect stars and cube
 	driveRightLeft(-120, 90);
 	resetMotorEncoder(wheelFR);
 	//push wings down
@@ -192,7 +192,8 @@ void backAutonomous2() {
 	//goes forward a small amount to approach cube
 	resetMotorEncoder(wheelBL)
 	driveRightLeft(-100,100);
-	while(abs(getMotorEncoder(wheelBL)) < 90){}
+	ClearTimer[T1];
+	while(abs(getMotorEncoder(wheelBL)) < 90 && timer1[T1] < 500){}
 	stopDrive();
 
 	motor[clawR] = 120;
