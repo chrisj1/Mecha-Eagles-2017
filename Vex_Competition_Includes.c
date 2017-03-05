@@ -49,7 +49,7 @@
 /*---------------------------------------------------------------------------*/
 
 // Forward references for functions in the competition template
-void pre_auton();
+task pre_auton();
 task autonomous();
 task usercontrol();
 
@@ -88,7 +88,7 @@ task main()
 	clearLCDLine(1);
 	stopTask(flashScreen);
 	// Call pre_auton function where the user can initialize sensors and variables
-	pre_auton();
+	starttask(pre_auton)
 
 	while (true)
 	{

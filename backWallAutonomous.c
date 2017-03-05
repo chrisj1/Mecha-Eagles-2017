@@ -22,7 +22,7 @@ void knockRemainingStars() {
 		//go backward, lower lifter, and go forward
 	//to knock some extra stars off the fence
 	driveRightLeft(127,-127);
-	wait1Msec(700);
+	wait1Msec(500);
 	//lowser the lifter and extend the claws
 	stopDrive();
 	motor[clawR] = -50;
@@ -167,34 +167,27 @@ void backAutonomous2() {
 	//inital preparation - extends claws
 	clawPreLaunch();
 	launchStar();
-	turn(-35, 70);
+	turn(-35, 80);
 
-	driveRightLeft(-90, 90);
+	driveRightLeft(-120, 1120);
 	resetMotorEncoder(wheelBL);
-	while(abs(getMotorEncoder(wheelBL)) < 190){}
+	while(abs(getMotorEncoder(wheelBL)) < 50){}
 	stopDrive();
-	motor[clawL] = -120;
-	while(SensorValue[leftClaw] > 1800){}
+	motor[clawL] = -127;
+	while(SensorValue[leftClaw] > 2000){}
 	motor[clawL] = 0;
-	turn(15, 50);
+	turn(10, 60);
 
 	//drive until we get all three stars
 	motor[clawR] = -20;
 	driveRightLeft(-100,100);
-	while(abs(getMotorEncoder(wheelBL)) < 1460){}
+	while(abs(getMotorEncoder(wheelBL)) < 1400){}
 	stopDrive();
 
 	//gets the cube and turns towards the fence
 	motor[clawR] = 0;
 	motor[clawL] = -100;
-	turn(-90, 120);
-
-	//goes forward a small amount to approach cube
-	resetMotorEncoder(wheelBL)
-	driveRightLeft(-100,100);
-	ClearTimer[T1];
-	while(abs(getMotorEncoder(wheelBL)) < 90 && timer1[T1] < 500){}
-	stopDrive();
+	turn(-90, 127, 127, 1100);
 
 	motor[clawR] = 120;
 	wait1Msec(2000);
@@ -203,14 +196,14 @@ void backAutonomous2() {
 	funcLifterUp(true);
 	wait1Msec(200);
 
-	turn(finalTurnAngle, 100);
+	turn(finalTurnAngle, 90);
 
 	//goes towards the fence with increasing speed
-	for(int speed = 40; speed < 120; speed++) {
+	for(int speed = 30; speed < 127; speed++) {
 			driveRightLeft(-speed, speed);
 			wait1Msec(20);
 	}
-	wait1Msec(750/cosDegrees(finalTurnAngle));
+	wait1Msec(900/cosDegrees(finalTurnAngle));
 	stopDrive();
 
 	//releases the claws

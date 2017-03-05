@@ -34,6 +34,11 @@ void turn(float angle, int speed) {
 }
 
 void turn(float angle, int speed, int min_value) {
+	turn(angle, speed, min_value, -1);
+}
+
+void turn(float angle, int speed, int min_value, int maxTime) {
+	ClearTimer(T2);
 	if(angle == 0) return;
 	int startAngle = SensorValue[gyro]/10.0;
 	int negate = isTurnNegative(angle) ? -1 : 1;
@@ -49,7 +54,7 @@ void turn(float angle, int speed, int min_value) {
 		if(abs(delta - angle) < 10) {
 			speed = max(min_value, speed * .998);
 		}
-	}while(abs(delta) < abs(angle + 15));
+	}while(abs(delta) < abs(angle + 15) && (time1[T2] < maxTime || maxTime == -1));
 	driveRightLeft(0,0);
 }
 
@@ -88,7 +93,7 @@ void followWall(int distance) {
 }
 
 const int LIFTER_DOWN = 3000;
-const int LIFTER_UP = 1900;
+const int LIFTER_UP = 1600;
 
 void lifterDown() {
 	while(SensorValue[lifterPot] < LIFTER_DOWN)	{
@@ -220,10 +225,10 @@ void startWallDrive() {
 }
 
 void launchStar(){
-	motor[wingR] = 120;
-	motor[wingL] = -120;
-	motor[wingChain] = 120;
-	wait1Msec(200);
+	motor[wingR] = -127;
+	motor[wingL] = 127;
+	motor[wingChain] = 127;
+	wait1Msec(500);
 	motor[wingR] = 120;
 	motor[wingL] = -120;
 	motor[wingChain] = -120;
@@ -287,7 +292,7 @@ void setClawPos(int arm, int pos) {
 
 void clawPreLaunch() {
 	motor[clawL] = -127;
-	motor[clawR] = 70;
+	motor[clawR] = 90;
 	wait1Msec(700);
 	motor[clawL] = 0;
 	motor[clawR] = 0;

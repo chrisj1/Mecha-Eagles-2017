@@ -11,6 +11,7 @@ void straighten(int speed);
 void collectStars(bool isOnRight, bool endOnRightSide);
 void startWallDrive();
 void turn(float angle, int speed, int min_value);
+void turn(float angle, int speed, int min_value, int maxTime);
 
 
 #include "autonomous.c"

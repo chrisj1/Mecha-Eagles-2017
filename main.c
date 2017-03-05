@@ -38,13 +38,15 @@ int target;
 
 #include "Vex_Competition_Includes.c"
 int r;
-void pre_auton() {
+
+
+task pre_auton() {
+
 	clearScreen();
 	SensorValue[gyro] = 0;
 	startTask(flashScreen);
 	string prompt = "Final Turn Angle";
 	r = askRoutine();
-	//r = 4
 	wait1Msec(600);
 	isRight = askPos();
 	wait1Msec(600);
@@ -58,7 +60,11 @@ void pre_auton() {
 }
 
 task autonomous() {
-	if(r == 2) return;
+	if(r == 2) {
+		clawPreLaunch();
+		launchStar();
+		return;
+	}
 	resetEncoders();
 	clearTimer(T1);
 	if(r == 0) {
